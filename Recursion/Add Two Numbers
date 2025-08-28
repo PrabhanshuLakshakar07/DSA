@@ -1,0 +1,35 @@
+class ListNode(var `val`: Int) {
+    var next: ListNode? = null
+}
+
+class Solution {
+    fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
+        // Dummy head to simplify result list creation
+        val dummyHead = ListNode(0)
+        var p = l1
+        var q = l2
+        var curr = dummyHead
+        var carry = 0
+
+        // Loop while either list has nodes
+        while (p != null || q != null) {
+            val x = p?.`val` ?: 0  // digit from l1
+            val y = q?.`val` ?: 0  // digit from l2
+            val sum = carry + x + y
+
+            carry = sum / 10                // update carry
+            curr.next = ListNode(sum % 10)  // store last digit
+            curr = curr.next!!              // move pointer
+
+            if (p != null) p = p.next
+            if (q != null) q = q.next
+        }
+
+        // Add leftover carry if exists
+        if (carry > 0) {
+            curr.next = ListNode(carry)
+        }
+
+        return dummyHead.next
+    }
+}
