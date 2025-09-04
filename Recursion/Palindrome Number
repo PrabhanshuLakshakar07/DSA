@@ -15,7 +15,7 @@ Input: x = 10
 Output: false
 Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 
-solve 
+solve ex. 121
 Function Call     	start	  end	   s[start]	   s[end]	       Action
 helper("121",0,2)  	0	       2	       '1'	      '1'   	waiting for return
 helper("121",1,1)	  1	       1        	'2'	        '2'   	check base case
@@ -30,7 +30,7 @@ start >= end → base case → return true */
 fun isPalindrome(x: Int): Boolean {
     if (x < 0) return false // Negative numbers are not palindrome
 
-    val str = x.toString()
+    val str = x.toString()  // convert to string 
 
     fun helper(s: String, start: Int, end: Int): Boolean {
         if (start >= end) return true
