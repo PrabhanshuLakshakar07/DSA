@@ -1,0 +1,57 @@
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+ 
+Example 1:
+Input: s = "()"
+Output: true
+Example 2:
+Input: s = "()[]{}"
+Output: true
+Example 3:
+Input: s = "(]"
+Output: false
+Example 4
+Input: s = "([])"
+Output: true
+Example 5:
+Input: s = "([)]"
+Output: false
+
+ 
+
+Constraints:
+
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
+
+///////////////////////////////////////////////////Solution .///////////// Kotlin /////////////////////////////////
+
+class Solution {
+    fun isValid(s: String): Boolean {
+          val stack = Stack<Char>()                    // store karege apn c jo closing bracket se check hoga 
+           val map = mapOf(')' to '(', '}' to '{', ']' to '[')   //map karege kyo ki check karna h apnko 
+
+        for(c in s){
+            if(c in "({["){
+                stack.push(c)
+            }else if (c in ")}]"){
+                if (stack.isEmpty() || stack.pop() != map[c]) return false
+            }
+        }
+        return stack.isEmpty()
+        
+    }
+}
+
+
+
+
+
+
+
+
