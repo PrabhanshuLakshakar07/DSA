@@ -31,3 +31,49 @@ Constraints:
 -109 <= nums[i] <= 109
 nums is a non-decreasing array.
 -109 <= target <= 109
+///////////////////////////////////// Kotlin solve ////////////////
+
+class Solution {
+    fun searchRange(nums: IntArray, target: Int): IntArray {
+        // Step 1: Pehli position dhoondo
+        val first = findBound(nums, target, isFirst = true)
+        
+        // Agar pehla hi nahi mila, toh matlab number exist hi nahi karta
+        if (first == -1) {
+            return intArrayOf(-1, -1)
+        }
+        
+        // Step 2: Aakhri position dhoondo
+        val last = findBound(nums, target, isFirst = false)
+        
+        return intArrayOf(first, last)
+    }
+
+    // Helper Function: Binary Search Logic
+    // isFirst = true matlab hum Left side check karenge (Start dhoondne ke liye)
+    // isFirst = false matlab hum Right side check karenge (End dhoondne ke liye)
+    private fun findBound(nums: IntArray, target: Int, isFirst: Boolean): Int {
+        var start = 0
+        var end = nums.size - 1
+        var result = -1
+
+        while (start <= end) {
+            val mid = start + (end - start) / 2
+
+            if (nums[mid] == target) {
+                result = mid // Position mil gayi, store kar lo
+                
+                if (isFirst) {
+                    end = mid - 1 // Aur Left mein dhoondo
+                } else {
+                    start = mid + 1 // Aur Right mein dhoondo
+                }
+            } else if (nums[mid] < target) {
+                start = mid + 1 // Target right mein hai
+            } else {
+                end = mid - 1 // Target left mein hai
+            }
+        }
+        return result
+    }
+}
