@@ -24,3 +24,30 @@ Constraints:
 
 Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 ////////////////////////////////////////////////solve ////////////////////////JAVA/////////////////////
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+      int maxSum = nums[0]; 
+        int currentSum = 0;
+
+      for (int i = 0; i < nums.length; i++){
+            // current element ko add karo
+            currentSum += nums[i];
+            
+            // Check karo kya ye ab tak ka best hai?
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+            
+            // AGAR SUM NEGATIVE HAI TO RESET KARO (Core Kadane's)
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
+        }
+        
+        // Final answer return karo
+        return maxSum;
+        } 
+        
+    
+}
