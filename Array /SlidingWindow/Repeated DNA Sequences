@@ -29,3 +29,29 @@ Constraints:
 s[i] is either 'A', 'C', 'G', or 'T'.
 
 ///////////////////////////////////////////JAVA///////////////////JAVA////////////
+
+class Solution {
+    public List<String> findRepeatedDnaSequences(String s) {
+        Set<String> seen = new HashSet<>();
+
+        Set<String> repeated = new HashSet<>();
+        for (int i = 0; i <= s.length() - 10; i++) {
+            // Window: current 10 characters uthao
+            String currentWindow = s.substring(i, i + 10);
+            
+            // 3. HashSet Logic (Working):
+            // Agar 'seen' mein ye window pehle se hai (O(1) search)
+            if (seen.contains(currentWindow)) {
+                // Toh isse 'repeated' set mein daal do
+                repeated.add(currentWindow);
+            } else {
+                // Warna 'seen' mein add kar do pehli baar ke liye
+                seen.add(currentWindow);
+            }
+        }
+        
+        // Final result ko list mein convert karke return karo
+        return new ArrayList<>(repeated);
+        
+    }
+}
