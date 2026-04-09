@@ -26,3 +26,31 @@ Constraints:
  
 
 Follow up: If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log(n)).
+/////////////////////////////////////java /////////////java //////////java/////
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int n = nums.length;
+        int minLength = Integer.MAX_VALUE;
+        int currentSum = 0;
+        int left = 0; // Window ka start point
+
+        // 'right' pointer window ko aage badhayega
+        for (int right = 0; right < n; right++) {
+            currentSum += nums[right];
+
+            // Jab tak sum target ke barabar ya bada hai, window shrink karo
+            while (currentSum >= target) {
+                // 1. Length update karo (current window size: right - left + 1)
+                minLength = Math.min(minLength, right - left + 1);
+                
+                // 2. Left side se element hatao taaki choti window check ho sake
+                currentSum -= nums[left];
+                left++;
+            }
+        }
+
+        // Agar minLength update hi nahi hui, matlab koi subarray nahi mila
+        return (minLength == Integer.MAX_VALUE) ? 0 : minLength;
+        
+    }
+}
