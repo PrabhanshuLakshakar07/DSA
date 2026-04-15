@@ -1,0 +1,46 @@
+package DAY2.Queue;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Bin_to_Dec
+{
+    /*static int to_dec(String bin)
+    {
+        int dec=0;
+        int power=bin.length()-1;
+        for (char bit : bin.toCharArray()) {
+            int int_bit = bit - '0';
+            dec += (int) (int_bit*Math.pow(2,power));
+            power--;
+        }
+        return dec;
+    }*/
+    static int to_dec(String bin)
+    {
+        Queue<Integer> q=new LinkedList<>();
+        for (char bit : bin.toCharArray())
+        {
+            q.offer(bit-'0');//Convert to integer and then Enqueue on queue.
+        }
+        int dec=0;
+        while(!q.isEmpty())
+        {
+            int int_bit=q.poll();
+            dec += (int) (int_bit*Math.pow(2,q.size()));
+            System.out.println("Dec:"+dec+"\tQueue has:"+q);
+        }
+        return dec;
+    }
+    public static void main(String[] args)
+    {
+        Queue<Character> queue = new LinkedList<>();
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter Binary number:");
+        String binary = sc.next();
+        int dec=to_dec(binary);
+
+        System.out.println("Decimal is:"+dec);
+    }
+}
