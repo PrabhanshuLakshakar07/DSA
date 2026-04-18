@@ -1,1 +1,146 @@
 
+Consider there exist two linked lists which are sorted. Create a third linked list by merging them.
+logic:
+Starting from both start node or head node, compare the smaller one gets copied to a new link list and move to the next. Keep on doing till either one gets over, then copy the remaining to the next.
+............................Answer.....................
+
+
+import java.util.Scanner;
+
+class ListElement {
+    int data;
+    ListElement next;
+
+    ListElement(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Merging_Sorted_TwoLinear_Linked_List {
+
+    public ListElement root;
+
+    // Insert at end
+    void insert_right(int data) {
+        ListElement n = new ListElement(data);
+        if (root == null) {
+            root = n;
+        } else {
+            ListElement t = root;
+            while (t.next != null) {
+                t = t.next;
+            }
+            t.next = n;
+        }
+    }
+
+    // Print list
+    void print_list() {
+        if (root == null) {
+            System.out.println("Empty.");
+        } else {
+            ListElement t = root;
+            while (t != null) {
+                System.out.print("|" + t.data + "|->");
+                t = t.next;
+            }
+            System.out.println("NULL");
+        }
+    }
+
+    //Sort linked list (Bubble Sort)
+    void sort_list() {
+        if (root == null || root.next == null) return;
+
+        boolean swapped;
+        do {
+            swapped = false;
+            ListElement t = root;
+
+            while (t.next != null) {
+                if (t.data > t.next.data) {
+                    int temp = t.data;
+                    t.data = t.next.data;
+                    t.next.data = temp;
+                    swapped = true;
+                }
+                t = t.next;
+            }
+        } while (swapped);
+    }
+
+    //Merge two sorted lists
+    public static Merging_Sorted_TwoLinear_Linked_List merge_sorted_lists(
+            Merging_Sorted_TwoLinear_Linked_List L1,
+            Merging_Sorted_TwoLinear_Linked_List L2) {
+
+        Merging_Sorted_TwoLinear_Linked_List L3 = new Merging_Sorted_TwoLinear_Linked_List();
+
+        ListElement t1 = L1.root;
+        ListElement t2 = L2.root;
+
+        while (t1 != null && t2 != null) {
+            if (t1.data <= t2.data) {
+                L3.insert_right(t1.data);
+                t1 = t1.next;
+            } else {
+                L3.insert_right(t2.data);
+                t2 = t2.next;
+            }
+        }
+
+        while (t1 != null) {
+            L3.insert_right(t1.data);
+            t1 = t1.next;
+        }
+
+        while (t2 != null) {
+            L3.insert_right(t2.data);
+            t2 = t2.next;
+        }
+
+        return L3;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Merging_Sorted_TwoLinear_Linked_List obj1 = new Merging_Sorted_TwoLinear_Linked_List();
+        Merging_Sorted_TwoLinear_Linked_List obj2 = new Merging_Sorted_TwoLinear_Linked_List();
+
+        // Input List 1
+        System.out.print("Enter number of elements in List 1: ");
+        int n1 = sc.nextInt();
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n1; i++) {
+            obj1.insert_right(sc.nextInt());
+        }
+
+        //Input List 2
+        System.out.print("Enter number of elements in List 2: ");
+        int n2 = sc.nextInt();
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n2; i++) {
+            obj2.insert_right(sc.nextInt());
+        }
+
+        //Sort both lists
+        obj1.sort_list();
+        obj2.sort_list();
+
+        System.out.print("Sorted List 1: ");
+        obj1.print_list();
+
+        System.out.print("Sorted List 2: ");
+        obj2.print_list();
+
+        // Merge
+        Merging_Sorted_TwoLinear_Linked_List obj3 = merge_sorted_lists(obj1, obj2);
+
+        System.out.print("Merged List: ");
+        obj3.print_list();
+
+        sc.close();
+    }
+}
