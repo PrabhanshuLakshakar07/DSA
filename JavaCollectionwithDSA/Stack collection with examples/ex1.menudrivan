@@ -1,0 +1,70 @@
+package Stack;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class StackMenu {
+    public static void main(String[] args) {
+        // 1. Stack banaya integers store karne ke liye
+        Stack<String> tasks = new Stack<>();
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        System.out.println("--- Bhai ka Task Manager (Stack Based) ---");
+
+        do {
+            // Menu Display karna
+            System.out.println("\n1. Add Task (Push)");
+            System.out.println("2. Undo Last Task (Pop)");
+            System.out.println("3. See Current Task (Peek)");
+            System.out.println("4. Show All Tasks");
+            System.out.println("5. Exit");
+            System.out.print("Bhai, kya karna hai? (1-5): ");
+            
+            choice = sc.nextInt();
+            sc.nextLine(); // Dummy line buffer saaf karne ke liye
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Task ka naam likho: ");
+                    String taskName = sc.nextLine();
+                    tasks.push(taskName);
+                    System.out.println("Task add ho gaya!");
+                    break;
+
+                case 2:
+                    if (!tasks.isEmpty()) {
+                        System.out.println("Hata diya: " + tasks.pop());
+                    } else {
+                        System.out.println("Bhai, stack pehle se khali hai!");
+                    }
+                    break;
+
+                case 3:
+                    if (!tasks.isEmpty()) {
+                        System.out.println("Abhi ka task: " + tasks.peek());
+                    } else {
+                        System.out.println("Koi task nahi hai.");
+                    }
+                    break;
+
+                case 4:
+                    if (tasks.isEmpty()) {
+                        System.out.println("List khali hai.");
+                    } else {
+                        System.out.println("Saare Tasks (Neeche se upar): " + tasks);
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Chal bhai, milte hain!");
+                    break;
+
+                default:
+                    System.out.println("Galat choice! 1 se 5 ke beech chuno.");
+            }
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
